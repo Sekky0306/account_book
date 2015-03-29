@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+</head>
+<body>
+  
+ <form action="/create" method="post">
+   <label for="title">商品名</label>
+   <input type="text" name="title" id="title">
+    <label for="title">金額</label>
+   <input type="text" name="price" id="price">
+   <select name="category" id="category">
+    <% @categories.each do |category| %>
+      <option value="<%= category.id %>"><%=category.name %></option>
+      <% end %>
+    </select>
+   <input type="submit" value="追加"> 
+   </form>
+   <ul>
+   <% @categories.each do |category| %>
+   <li><a href="/category/<%= category.id %>"><%= category.name %></a></li>
+   <% end %>
+   </ul> 
+   <% if @category.present? %>
+     <h1><%= @category.name %></h1>
+     <% end %>   
+   <div>
+   <% @items.each do |item| %>
+   <div>
+   <p><%= item.title %></p>
+   <p><%= item.price %>円</p>
+   <p><%= item.category.name %></p>
+</div>
+<% end %>
+</div>
+</body>
+</html>
