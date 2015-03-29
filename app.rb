@@ -34,3 +34,18 @@ get '/category/:id' do
 	@items = @category.items
 	erb :index
 end
+
+patch '/:id' do
+	@item = Item.find(params[:id])
+	@item.update({
+		title: params[:title],
+		price: params[:price]
+		})
+	redirect '/'
+end
+
+delete '/:id' do
+	@item = Item.find(params[:id])
+	@item.destroy
+	redirect '/'
+end

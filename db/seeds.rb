@@ -1,10 +1,10 @@
 if Category.count == 0
 	Category.create([
-		{name: '収入'},
-		{name: '食事'},
-		{name: '服'},
-		{name: 'ゲーム'},
-		{name: '交通費'},
+		{name: '球技'},
+		{name: '水泳'},
+		{name: '陸上競技'},
+		{name: 'ウィンタースポーツ'},
+		{name: '筋トレ'},
 		{name: 'その他'}
 		])
 	

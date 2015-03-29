@@ -2,15 +2,16 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>Document</title>
+  <title>running</title>
+  <script src="/assets/js/Chart.min.js"></script>
   <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
 </head>
 <body>
-  
+
  <form action="/create" method="post">
-   <label for="title">商品名</label>
+   <label for="title">競技</label>
    <input type="text" name="title" id="title">
-    <label for="title">金額</label>
+    <label for="title">時間(分）</label>
    <input type="text" name="price" id="price">
    <select name="category" id="category">
     <% @categories.each do |category| %>
@@ -23,7 +24,8 @@
    <% @categories.each do |category| %>
    <li><a href="/category/<%= category.id %>"><%= category.name %></a></li>
    <% end %>
-   </ul> 
+   </ul>
+
    <% if @category.present? %>
      <h1><%= @category.name %></h1>
      <% end %>   
@@ -31,10 +33,32 @@
    <% @items.each do |item| %>
    <div>
    <p><%= item.title %></p>
-   <p><%= item.price %>円</p>
+   <p><%= item.price %>分</p>
    <p><%= item.category.name %></p>
+   <p><a href="/edit/<%= item.id %>">編集</a></p>
+   <form action="/<%= item.id %>" method="post">
+    <input type="hidden" name='_method' value='delete'>
+    <input type="submit" value="削除">
+  </form>
 </div>
 <% end %>
 </div>
+ <canvas id="graph" height="500" width"500"></canvas>
+ <script>
+colors = ['#F44336','#448AFF','#FF9800','#009688','#E91E63','#00BCD4']
+var doughnutData = [
+<% @categories.each_with_index do |category, idx| %>
+{
+  value: <%= category.items.sum(:price) %>,
+  label: '<%= category.name %>',
+  color: colors[<%= idx %>]
+},
+<% end %>
+];
+var myDoughnut= new Chart(document.getElementById("graph").
+  getContext("2d")).Doughnut(doughnutData);
+  </script>
+<a href="https://twitter.com/share" class="twitter-share-button" data-text="私はこれだけ運動しています。 <%= request.fullpath %>" data-via="Life_is_Tech" data-lang="ja" data-count="none" data-hashtags="sportReport">ツイート</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 </body>
 </html>

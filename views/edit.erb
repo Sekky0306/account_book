@@ -6,10 +6,11 @@
  </head>
 <body>
 
-  <form action="" method="">
-    <label for="title">商品名</label>
+  <form action="/<%= @item.id %>" method="post">
+    <input type="hidden" name='_method' value='patch'>
+    <label for="title">競技</label>
     <input type="text" name="title" id="title" value="<%= @item.title %>">
-    <label for="price">金額</label>
+    <label for="price">時間</label>
   <input type="price" name="price" id="price" value="<%= @item.price %>">
   <input type="submit" value="変更">
 </form>
